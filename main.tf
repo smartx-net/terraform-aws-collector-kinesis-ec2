@@ -19,6 +19,8 @@ locals {
   )
 
   cloudwatch_log_group_name = "/aws/ec2/${var.name}"
+
+  extra_iam_policy = var.extra_iam_policy
 }
 
 data "aws_region" "current" {}
@@ -135,6 +137,12 @@ resource "aws_iam_role_policy_attachment" "policy_attachment" {
   policy_arn = aws_iam_policy.iam_policy.arn
 }
 
+resource "aws_iam_role_policy_attachment" "extra_policy_attachment" {
+  for_each = local.extra_iam_policy
+  role       = aws_iam_role.iam_role.name
+  policy_arn = each.value
+}
+
 resource "aws_iam_instance_profile" "instance_profile" {
   name = var.name
   role = aws_iam_role.iam_role.name
@@ -237,6 +245,8 @@ locals {
 
     extra_user_data = var.extra_user_data
 
+    java_opts = var.java_opts
+
     telemetry_script = join("", module.telemetry.*.amazon_linux_2_user_data)
 
     cloudwatch_logs_enabled   = var.cloudwatch_logs_enabled
@@ -270,8 +280,7 @@ resource "aws_launch_configuration" "lc" {
 }
 
 module "tags" {
-  source  = "snowplow-devops/tags/aws"
-  version = "0.1.1"
+  source  = "https://github.com/smartx-net/terraform-aws-tags.git?ref=provider-tags"
 
   tags = local.tags
 }
