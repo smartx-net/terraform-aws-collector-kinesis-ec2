@@ -235,6 +235,8 @@ locals {
     config  = local.collector_hocon
     version = local.app_version
 
+    java_opts = var.java_opts
+
     telemetry_script = join("", module.telemetry.*.amazon_linux_2_user_data)
 
     cloudwatch_logs_enabled   = var.cloudwatch_logs_enabled
