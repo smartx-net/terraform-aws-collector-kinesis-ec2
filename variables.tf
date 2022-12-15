@@ -140,6 +140,12 @@ variable "time_limit_ms" {
   type        = number
 }
 
+variable "extra_user_data" {
+  description = "Extra user data to run"
+  default     = ""
+  type        = string
+}
+
 variable "java_opts" {
   description = "Custom Java Options"
   default     = ""
