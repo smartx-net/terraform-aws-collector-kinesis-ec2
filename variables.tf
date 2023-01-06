@@ -140,6 +140,12 @@ variable "time_limit_ms" {
   type        = number
 }
 
+variable "access_control_max_age_duration" {
+  description = "The amount of time that the browser should cache the preflight response"
+  default     = "60 minutes"
+  type        = string
+}
+
 variable "extra_user_data" {
   description = "Extra user data to run"
   default     = ""

@@ -138,7 +138,7 @@ resource "aws_iam_role_policy_attachment" "policy_attachment" {
 }
 
 resource "aws_iam_role_policy_attachment" "extra_policy_attachment" {
-  for_each = local.extra_iam_policy
+  for_each   = local.extra_iam_policy
   role       = aws_iam_role.iam_role.name
   policy_arn = each.value
 }
@@ -230,6 +230,8 @@ locals {
     record_limit  = var.record_limit
     time_limit_ms = var.time_limit_ms
 
+    access_control_max_age_duration = var.access_control_max_age_duration
+
     disable           = !tobool(var.telemetry_enabled)
     telemetry_url     = join("", module.telemetry.*.collector_uri)
     user_provided_id  = var.user_provided_id
@@ -280,7 +282,7 @@ resource "aws_launch_configuration" "lc" {
 }
 
 module "tags" {
-  source  = "git::https://github.com/smartx-net/terraform-aws-tags.git?ref=provider-tags"
+  source = "git::https://github.com/smartx-net/terraform-aws-tags.git?ref=provider-tags"
 
   tags = local.tags
 }
