@@ -53,7 +53,7 @@ collector {
     body = "302, redirecting"
   }
   cors {
-    accessControlMaxAge = "300 seconds"
+    accessControlMaxAge = "${cors_access_control_max_age} seconds"
   }
   prometheusMetrics {
     enabled = false

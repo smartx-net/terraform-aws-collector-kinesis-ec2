@@ -230,6 +230,8 @@ locals {
     record_limit  = var.record_limit
     time_limit_ms = var.time_limit_ms
 
+    cors_access_control_max_age = var.cors_access_control_max_age
+
     disable           = !tobool(var.telemetry_enabled)
     telemetry_url     = join("", module.telemetry.*.collector_uri)
     user_provided_id  = var.user_provided_id
