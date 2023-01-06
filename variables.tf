@@ -140,10 +140,10 @@ variable "time_limit_ms" {
   type        = number
 }
 
-variable "cors_access_control_max_age" {
-  description = "The amount of time in seconds that the browser should cache the preflight response"
-  default     = 5
-  type        = number
+variable "access_control_max_age_duration" {
+  description = "The amount of time that the browser should cache the preflight response"
+  default     = "60 minutes"
+  type        = string
 }
 
 variable "extra_user_data" {
